@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: deploy-mysql
+spec:
+  selector:
+    matchLabels:
+      app: pod-mysql
+  serviceName: "mysql"
+  replicas: 1
+  minReadySeconds: 10 
+  template:
+    metadata:
+      labels:
+        app: pod-mysql
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: mysql-medclinical
+        image: mysql:8
+        ports:
+        - containerPort: 3306
+          name: mysql-port
+        env:
+        - name: MYSQL_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: dados-medclinical     
+              key: DB_DATABASE
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: secret-medclinical
+              key: DB_PASSWORD
+        volumeMounts:
+        - name: www
+          mountPath: /usr/share/nginx/html
+  volumeClaimTemplates:
+  - metadata:
+      name: www
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "my-storage-class"
+      resources:
+        requests:
+          storage: 1Gi
