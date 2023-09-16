@@ -16,13 +16,13 @@ spec:
 apiVersion: apps/v1
 kind: Service
 metadata:
-  name: mysql-service
-  labels: mysql-service
+  name: mysql
+  labels: mysql
 
 spec:
   ports:
   - port: 3306
-    name: mysql-service
+    name: mysql
   ClusterIP: None
   selector:
     app: pod-mysql

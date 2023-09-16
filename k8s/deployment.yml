@@ -4,6 +4,7 @@ metadata:
   name: medclinical
   labels:
     app: deploy-medclinical
+
 spec:
   replicas: 3
   selector:
@@ -13,23 +14,27 @@ spec:
     metadata:
       labels:
         app: pod-medclinical
+
     spec:
       containers:
       - name: medclinical-api
         image: leonardosartorello/vollmed:v8
         ports:
         - containerPort: 3000
+
         env:
         - name: DB_HOST
           valueFrom:
             configMapKeyRef:
-              name: dados-medclinical     
+              name: dados-medclinical 
               key: DB_HOST
+
         - name: DB_DATABASE
           valueFrom:
             configMapKeyRef:
               name: dados-medclinical     
               key: DB_DATABASE
+
         - name: DB_PASSWORD
           valueFrom:
             secretKeyRef:

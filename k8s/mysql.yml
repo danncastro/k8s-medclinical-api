@@ -37,9 +37,9 @@ spec:
               name: secret-medclinical
               key: DB_PASSWORD
 
-      volumeMounts:
-      - name: mysql-persistent
-        mountPath: /var/lib/mysql
+        volumeMounts:
+        - name: mysql-persistent
+          mountPath: /var/lib/mysql
       volumes:
       - name: mysql-persistent
         PersistentVolumeClaim:
