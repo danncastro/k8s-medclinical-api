@@ -3,17 +3,17 @@ kind: Deployment
 metadata:
   name: medclinical
   labels:
-    app: deploy-medclinical
+    app: medclinical
 
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: pod-medclinical
+      app: medclinical
   template:
     metadata:
       labels:
-        app: pod-medclinical
+        app: medclinical
 
     spec:
       containers:
